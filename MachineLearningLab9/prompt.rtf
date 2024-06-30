@@ -1,0 +1,412 @@
+{\rtf1\ansi\ansicpg936\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green128\blue19;\red193\green193\blue193;\red24\green24\blue24;
+\red70\green137\blue204;\red140\green211\blue254;\red202\green202\blue202;\red212\green214\blue154;\red89\green138\blue67;
+\red183\green111\blue179;\red167\green197\blue152;\red194\green126\blue101;\red205\green173\blue106;\red14\green0\blue255;
+\red167\green9\blue245;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c50196\c7451;\cssrgb\c80000\c80000\c80000;\cssrgb\c12157\c12157\c12157;
+\cssrgb\c33725\c61176\c83922;\cssrgb\c61176\c86275\c99608;\cssrgb\c83137\c83137\c83137;\cssrgb\c86275\c86275\c66667;\cssrgb\c41569\c60000\c33333;
+\cssrgb\c77255\c52549\c75294;\cssrgb\c70980\c80784\c65882;\cssrgb\c80784\c56863\c47059;\cssrgb\c84314\c72941\c49020;\csgenericrgb\c5490\c0\c100000;
+\csgenericrgb\c65490\c3529\c96078;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs20 \cf2 \uc0\u26681 \u25454 \u25991 \u26723 \u65292 \u22312 \u20197 \u19979 \u20195 \u30721 \u34917 \u20805 D*\u31639 \u27861 \u20027 \u20989 \u25968 PROCESS_STATE()\
+\
+\
+%Dstar D* navigation class\
+%\
+% A concrete subclass of the abstract Navigation class that implements the D*\
+% navigation algorithm.  This provides minimum distance paths and\
+% facilitates incremental replanning.\
+%\
+% Methods::\
+%  Dstar             Constructor\
+%  plan              Compute the cost map given a goal and map\
+%  query             Find a path\
+%  plot              Display the obstacle map\
+%  display           Print the parameters in human readable form\
+%  char              Convert to string%  costmap_modify    Modify the costmap\
+%--\
+%  modify_cost       Modify the costmap\
+%\
+% Properties (read only)::\
+%  distancemap       Distance from each point to the goal.\
+%  costmap           Cost of traversing cell (in any direction).\
+%  niter             Number of iterations.\
+%\
+% Example::\
+%        load map1           % load map\
+
+\f1\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3         \cf5 \strokec5 function\cf3 \strokec3  \cf6 \strokec6 r\cf3 \strokec3  \cf7 \strokec7 =\cf3 \strokec3  \cf8 \strokec8 PROCESS_STATE\cf3 \strokec3 (\cf6 \strokec6 d\cf3 \strokec3 )\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb4             \cf6 \strokec6 X\cf3 \strokec3  \cf7 \strokec7 =\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 MIN_STATE\cf3 \strokec3 ();                          \cf9 \strokec9 % L1\cf3 \cb1 \strokec3 \
+\cb4             \cb1 \
+\cb4             \cf10 \strokec10 if\cf3 \strokec3  \cf8 \strokec8 isempty\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 )                               \cf9 \strokec9 % L2\cf3 \cb1 \strokec3 \
+\cb4                 \cf6 \strokec6 r\cf3 \strokec3  \cf7 \strokec7 =\cf3 \strokec3  \cf7 \strokec7 -\cf11 \strokec11 1\cf3 \strokec3 ;\cb1 \
+\cb4                 \cf10 \strokec10 return\cf3 \strokec3 ;\cb1 \
+\cb4             \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4             \cb1 \
+\cb4             \cf6 \strokec6 k_old\cf3 \strokec3  \cf7 \strokec7 =\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 GET_KMIN\cf3 \strokec3 (); \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 DELETE\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 );          \cf9 \strokec9 % L3\cf3 \cb1 \strokec3 \
+\cb4             \cb1 \
+\cb4             \cf10 \strokec10 if\cf3 \strokec3  \cf6 \strokec6 k_old\cf3 \strokec3  \cf7 \strokec7 <\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 )                           \cf9 \strokec9 % L4\cf3 \cb1 \strokec3 \
+\cb4                 \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 message\cf3 \strokec3 (\cf12 \strokec12 'k_old < h(X):  \cf13 \strokec13 %f\cf12 \strokec12  \cf13 \strokec13 %f\\n\cf12 \strokec12 '\cf3 \strokec3 , \cf6 \strokec6 k_old\cf3 \strokec3 , \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ));\cb1 \
+\cb4                 \cf10 \strokec10 for\cf3 \strokec3  \cf6 \strokec6 Y\cf7 \strokec7 =\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 neighbours\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 )                   \cf9 \strokec9 % L5\cf3 \cb1 \strokec3 \
+\cb4                     \cf10 \strokec10 if\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 <=\cf3 \strokec3  \cf6 \strokec6 k_old\cf3 \strokec3 ) \cf7 \strokec7 &&\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 >\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 )+\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 c\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ,\cf6 \strokec6 X\cf3 \strokec3 ))  \cf9 \strokec9 % L6\cf3 \cb1 \strokec3 \
+\cb4                         \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 b\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 =\cf3 \strokec3  \cf6 \strokec6 Y\cf3 \strokec3 ;\cb1 \
+\cb4                         \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 =\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf6 \strokec6 h\cf3 \strokec3  (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 +\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 c\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ,\cf6 \strokec6 X\cf3 \strokec3 );                    \cf9 \strokec9 % L7\cf3 \cb1 \strokec3 \
+\cb4                     \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4                 \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4             \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4             \cb1 \
+\cb4             \cf9 \strokec9 %% can we lower the path cost of any neighbours?\cf3 \cb1 \strokec3 \
+\cb4             \cf10 \strokec10 if\cf3 \strokec3  \cf6 \strokec6 k_old\cf3 \strokec3  \cf7 \strokec7 ==\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 )                          \cf9 \strokec9 % L8\cf3 \cb1 \strokec3 \
+\cb4                 \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 message\cf3 \strokec3 (\cf12 \strokec12 'k_old == h(X): \cf13 \strokec13 %f\\n\cf12 \strokec12 '\cf3 \strokec3 , \cf6 \strokec6 k_old\cf3 \strokec3 );\cb1 \
+\cb4                 \cf10 \strokec10 for\cf3 \strokec3  \cf6 \strokec6 Y\cf7 \strokec7 =\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 neighbours\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 )                   \cf9 \strokec9 % L9\cf3 \cb1 \strokec3 \
+\cb4                     \cf10 \strokec10 if\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 t\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 ==\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf6 \strokec6 NEW\cf3 \strokec3 ) \cf7 \strokec7 ||\cf3 \strokec3  ...\cf9 \strokec9                          % L10-12\cf3 \cb1 \strokec3 \
+\cb4                             ( (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 b\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 ==\cf3 \strokec3  \cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 &&\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 ~=\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 +\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 c\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ,\cf6 \strokec6 Y\cf3 \strokec3 ))) ) \cf7 \strokec7 ||\cf3 \strokec3  ...\cb1 \
+\cb4                             ( (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 b\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 ~=\cf3 \strokec3  \cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 &&\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 >\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 +\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 c\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ,\cf6 \strokec6 Y\cf3 \strokec3 ))) )\cb1 \
+\cb4                         \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 b\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 =\cf3 \strokec3  \cf6 \strokec6 X\cf3 \strokec3 ; \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 INSERT\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 , \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 )+\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 c\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ,\cf6 \strokec6 Y\cf3 \strokec3 ), \cf12 \strokec12 'L13'\cf3 \strokec3 );   \cf9 \strokec9 % L13\cf3 \cb1 \strokec3 \
+\cb4                     \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4                 \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4             \cf10 \strokec10 else\cf3 \strokec3                                         \cf9 \strokec9 % L14\cf3 \cb1 \strokec3 \
+\cb4                 \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 message\cf3 \strokec3 (\cf12 \strokec12 'k_old > h(X)'\cf3 \strokec3 );\cb1 \
+\cb4                 \cf10 \strokec10 for\cf3 \strokec3  \cf6 \strokec6 Y\cf7 \strokec7 =\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 neighbours\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 )                   \cf9 \strokec9 % L15\cf3 \cb1 \strokec3 \
+\cb4                     \cf10 \strokec10 if\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 t\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 ==\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf6 \strokec6 NEW\cf3 \strokec3 ) \cf7 \strokec7 ||\cf3 \strokec3  ( (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 b\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 ==\cf3 \strokec3  \cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 &&\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 ~=\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 +\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 c\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ,\cf6 \strokec6 Y\cf3 \strokec3 ))) )\cb1 \
+\cb4                         \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 b\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 =\cf3 \strokec3  \cf6 \strokec6 X\cf3 \strokec3 ; \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 INSERT\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 , \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 )+\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 c\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ,\cf6 \strokec6 Y\cf3 \strokec3 ), \cf12 \strokec12 'L18'\cf3 \strokec3 );   \cf9 \strokec9 % L18\cf3 \cb1 \strokec3 \
+\cb4                     \cf10 \strokec10 else\cf3 \cb1 \strokec3 \
+\cb4                         \cf10 \strokec10 if\cf3 \strokec3  ( (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 b\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 ~=\cf3 \strokec3  \cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 &&\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 >\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 +\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 c\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ,\cf6 \strokec6 Y\cf3 \strokec3 ))) )\cb1 \
+\cb4                             \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 INSERT\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 , \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ), \cf12 \strokec12 'L21'\cf3 \strokec3 );                    \cf9 \strokec9 % L21\cf3 \cb1 \strokec3 \
+\cb4                         \cf10 \strokec10 else\cf3 \cb1 \strokec3 \
+\cb4                             \cf10 \strokec10 if\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 b\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 ~=\cf3 \strokec3  \cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 &&\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 X\cf3 \strokec3 ) \cf7 \strokec7 >\cf3 \strokec3  (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 +\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 c\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ,\cf6 \strokec6 X\cf3 \strokec3 ))) \cf7 \strokec7 &&\cf3 \strokec3  ...\cb1 \
+\cb4                                     (\cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 t\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 ==\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf6 \strokec6 CLOSED\cf3 \strokec3 ) \cf7 \strokec7 &&\cf3 \strokec3  \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ) \cf7 \strokec7 >\cf3 \strokec3  \cf6 \strokec6 k_old\cf3 \cb1 \strokec3 \
+\cb4                                 \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 INSERT\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 , \cf6 \strokec6 d\cf3 \strokec3 .\cf8 \strokec8 h\cf3 \strokec3 (\cf6 \strokec6 Y\cf3 \strokec3 ), \cf12 \strokec12 'L25'\cf3 \strokec3 );                \cf9 \strokec9 % L25\cf3 \cb1 \strokec3 \
+\cb4                             \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4                         \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4                     \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4                 \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4             \cf10 \strokec10 end\cf3 \cb1 \strokec3 \
+\cb4             \cb1 \
+\cb4             \cf6 \strokec6 r\cf3 \strokec3  \cf7 \strokec7 =\cf3 \strokec3  \cf11 \strokec11 0\cf3 \strokec3 ;\cb1 \
+\cb4             \cf10 \strokec10 return\cf3 \strokec3 ;\cb1 \
+\cb4         \cf5 \strokec5 end\cf3 \strokec3  \cf9 \strokec9 % process_state(0\cf3 \cb1 \strokec3 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs20 \cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\
+%        goal = [50,30];\
+%        start=[20,10];\
+%        ds = Dstar(map);    % create navigation object\
+%        ds.plan(goal)       % create plan for specified goal\
+%        ds.query(start)      % animate path from this start location\
+%\
+\
+\cf14 classdef \cf0 Dstar < Navigation\
+\
+    \cf14 properties \cf0 (SetAccess=private, GetAccess=public)\
+\
+        G         \cf2 % index of goal point\
+\
+\cf0         \cf2 % info kept per cell (state)\
+\cf0         b       \cf2 % backpointer (0 means not set)\
+\cf0         t       \cf2 % tag: NEW OPEN CLOSED\
+\cf0         h       \cf2 % distance map, path cost\
+\
+\cf0         validplan   \cf2 % a plan has been computed for current costmap\
+\
+\cf0         \cf2 % list of open states: 2xN matrix\
+\cf0         \cf2 %   each open point is a column, row 1 = index of cell, row 2 = k\
+\cf0         openlist\
+\
+        openlist_maxlen     \cf2 % keep track of maximum length\
+\
+\cf0         \cf2 % tag state values\
+\cf0         NEW = 0;\
+        OPEN = 1;\
+        CLOSED = 2;\
+    \cf14 end\
+\
+\cf0     \cf14 properties \cf0 (SetAccess=private, GetAccess=public)\
+        niter\
+        costmap   \cf2 % world cost map: obstacle = Inf\
+\cf0     \cf14 end\
+\
+\cf0     \cf14 methods\
+\
+\cf0         \cf2 % constructor\
+\cf0         \cf14 function \cf0 ds = Dstar(world, varargin)\
+            \cf2 %Dstar.Dstar D* constructor\
+\cf0             \cf2 %\
+\cf0             \cf2 % DS = Dstar(MAP, OPTIONS) is a D* navigation object, and MAP is an\
+\cf0             \cf2 % occupancy grid, a representation of a planar world as a\
+\cf0             \cf2 % matrix whose elements are 0 (free space) or 1 (occupied).\
+\cf0             \cf2 % The occupancy grid is coverted to a costmap with a unit cost\
+\cf0             \cf2 % for traversing a cell.\
+\cf0             \cf2 %\
+\cf0             \cf2 % Options::\
+\cf0             \cf2 % 'goal',G      Specify the goal point (2x1)\
+\cf0             \cf2 % 'metric',M    Specify the distance metric as 'euclidean' (default)\
+\cf0             \cf2 %               or 'cityblock'.\
+\cf0             \cf2 % 'inflate',K   Inflate all obstacles by K cells.\
+\cf0             \cf2 % 'progress'    Don't display the progress spinner\
+\cf0             \cf2 %\
+\cf0             \cf2 % Other options are supported by the Navigation superclass.\
+\cf0             \cf2 %\
+\cf0             \cf2 % See also Navigation.Navigation.\
+\
+\cf0             \cf2 % invoke the superclass constructor\
+\cf0             ds = ds@Navigation(world, varargin\{:\});\
+\
+            \cf2 % init the D* state variables\
+\cf0             ds.reset();\
+            \cf14 if \cf0 ~isempty(ds.goal)\
+                ds.goal_change();\
+            \cf14 end\
+\
+\cf0             ds.reset();\
+\
+        \cf14 end\
+\
+\cf0         \cf14 function \cf0 reset(ds)\
+            \cf2 %Dstar.reset Reset the planner\
+\cf0             \cf2 %\
+\cf0             \cf2 % DS.reset() resets the D* planner.  The next instantiation\
+\cf0             \cf2 % of DS.plan() will perform a global replan.\
+\
+\cf0             \cf2 % build the matrices required to hold the state of each cell for D*\
+\cf0             ds.b = zeros(size(ds.costmap), \cf15 'uint32'\cf0 );  \cf2 % backpointers\
+\cf0             ds.t = zeros(size(ds.costmap), \cf15 'uint8'\cf0 );   \cf2 % tags\
+\cf0             ds.h = Inf*ones(size(ds.costmap));         \cf2 % path cost estimate\
+\cf0             ds.openlist = zeros(2,0);                  \cf2 % the open list, one column per point\
+\
+\cf0             ds.openlist_maxlen = -Inf;\
+\
+            ds.occgrid2costmap(ds.occgridnav);\
+\
+            ds.validplan = false;     \cf2 % plan doesn't match costmap\
+\cf0         \cf14 end\
+\
+\cf0         \cf14 function \cf0 s = char(ds)\
+            \cf2 %Dstar.char Convert navigation object to string\
+\cf0             \cf2 %\
+\cf0             \cf2 % DS.char() is a string representing the state of the Dstar\
+\cf0             \cf2 % object in human-readable form.\
+\cf0             \cf2 %\
+\cf0             \cf2 % See also Dstar.display, Navigation.char.\
+\
+\cf0             \cf2 % most of the work is done by the superclass\
+\cf0             s = char@Navigation(ds);\
+\
+            \cf2 % Dstar specific stuff\
+\cf0             \cf14 if \cf0 ~isempty(ds.costmap)\
+                s = char(s, sprintf(\cf15 '  costmap: %dx%d, open list %d'\cf0 , size(ds.costmap), numcols(ds.openlist)));\
+            \cf14 else\
+\cf0                 s = char(s, sprintf(\cf15 '  costmap: empty:'\cf0 ));\
+            \cf14 end\
+\cf0             \cf14 if \cf0 ds.validplan\
+                s = char(s, sprintf(\cf15 '  plan: valid'\cf0 ));\
+            \cf14 else\
+\cf0                 s = char(s, sprintf(\cf15 '  plan: stale'\cf0 ));\
+            \cf14 end\
+\cf0         \cf14 end\
+\
+\cf0         \cf14 function \cf0 plot(ds, varargin)\
+            \cf2 %Dstar.plot Visualize navigation environment\
+\cf0             \cf2 %\
+\cf0             \cf2 % DS.plot() displays the occupancy grid and the goal distance\
+\cf0             \cf2 % in a new figure.  The goal distance is shown by intensity which\
+\cf0             \cf2 % increases with distance from the goal.  Obstacles are overlaid\
+\cf0             \cf2 % and shown in red.\
+\cf0             \cf2 %\
+\cf0             \cf2 % DS.plot(P) as above but also overlays a path given by the set\
+\cf0             \cf2 % of points P (Mx2).\
+\cf0             \cf2 %\
+\cf0             \cf2 % See also Navigation.plot.\
+\
+\cf0             plot@Navigation(ds, varargin\{:\}, \cf15 'distance'\cf0 , ds.h);\
+        \cf14 end\
+\
+\cf0         \cf2 % invoked by Navigation.step\
+\cf0         \cf14 function \cf0 n = next(ds, current)\
+\
+            \cf14 if \cf0 ~ds.validplan\
+                error(\cf15 'Cost map has changed, replan'\cf0 );\
+            \cf14 end\
+\cf0             X = sub2ind(size(ds.costmap), current(2), current(1));\
+            X = ds.b(X);\
+            \cf14 if \cf0 X == 0\
+                n = [];\
+            \cf14 else\
+\cf0                 [r,c] = ind2sub(size(ds.costmap), X);\
+                n = [c;r];\
+            \cf14 end\
+\cf0         \cf14 end\
+\
+\cf0         \cf14 function \cf0 plan(ds, varargin)\
+            \cf2 %Dstar.plan Plan path to goal\
+\cf0             \cf2 %\
+\cf0             \cf2 % DS.plan(OPTIONS) create a D* plan to reach the goal from all free cells\
+\cf0             \cf2 % in the map.  Also updates a D* plan after changes to the costmap. The\
+\cf0             \cf2 % goal is as previously specified.\
+\cf0             \cf2 %\
+\cf0             \cf2 % DS.plan(GOAL,OPTIONS) as above but goal given explicitly.\
+\cf0             \cf2 %\
+\cf0             \cf2 % Options::\
+\cf0             \cf2 % 'animate'    Plot the distance transform as it evolves\
+\cf0             \cf2 % 'progress'   Display a progress bar\
+\cf0             \cf2 %\
+\cf0             \cf2 % Note::\
+\cf0             \cf2 % - If a path has already been planned, but the costmap was\
+\cf0             \cf2 %   modified, then reinvoking this method will replan,\
+\cf0             \cf2 %   incrementally updating the plan at lower cost than a full\
+\cf0             \cf2 %   replan.\
+\cf0             \cf2 % - The reset method causes a fresh plan, rather than replan.\
+\cf0             \cf2 %\
+\cf0             \cf2 % See also Dstar.reset.\
+\
+\cf0             opt.progress = false;\
+            opt.animate = false;\
+            [opt,args] = tb_optparse(opt, varargin);\
+\
+            \cf2 % was a goal given here\
+\cf0             \cf14 if \cf0 ~isempty(args) && isvec(args\{1\},2)\
+                goal = args\{1\};\
+                ds.setgoal(goal);\
+                ds.reset();\
+            \cf14 end\
+\
+\cf0             \cf2 % check we have a goal\
+\cf0             assert(~isempty(ds.goal), \cf15 'RTB:Dstar:plan'\cf0 , \cf15 'no goal specified here or in constructor'\cf0 );\
+\
+            goal = ds.goal;\
+\
+            \cf2 % keep goal in index rather than row,col format\
+\cf0             ds.G = sub2ind(size(ds.occgridnav), goal(2), goal(1));\
+            ds.INSERT(ds.G, 0, \cf15 'goalset'\cf0 );\
+            ds.h(ds.G) = 0;\
+\
+            ds.niter = 0;\
+            \cf14 if \cf0 opt.progress\
+                \cf2 % for replanning we don't really know how many iterations, so scale it to\
+\cf0                 \cf2 % the worst case, a full replan\
+\cf0                 hprog = Navigation.progress_init(\cf15 'D* planning'\cf0 );\
+            \cf14 end\
+\
+\cf0             \cf2 % number of free cells, upper bound on number of iterations, trapped free\
+\cf0             \cf2 % cells will never be reached\
+\cf0             nfree = prod(size(ds.occgridnav)) - sum(sum(ds.occgridnav > 0));\
+            nupdate = round(nfree/100);\
+\
+            \cf14 while \cf0 true\
+                ds.niter = ds.niter + 1;\
+                \cf14 if \cf0 opt.progress && mod(ds.niter, nupdate) == 0\
+                    Navigation.progress(hprog, ds.niter/nfree);\
+\
+                    \cf14 if \cf0 opt.animate\
+                        Navigation.show_distance(ds.h);\
+                    \cf14 end\
+\cf0                 \cf14 end\
+\
+\cf0                 \cf14 if \cf0 ds.PROCESS_STATE() < 0\
+                    \cf14 break\cf0 ;\
+                \cf14 end\
+\cf0             \cf14 end\
+\
+\cf0             \cf14 if \cf0 opt.progress\
+                Navigation.progress_delete(hprog);\
+            \cf14 end\
+\cf0             ds.validplan = true;\
+            fprintf(\cf15 '%d iterations\\n'\cf0 , ds.niter)\
+        \cf14 end\
+\
+\
+\cf0         \cf14 function \cf0 set_cost(ds, costmap)\
+            \cf2 %Dstar.set_cost Set the current costmap\
+\cf0             \cf2 %\
+\cf0             \cf2 % DS.set_cost(C) sets the current costmap.  The cost map is the same size\
+\cf0             \cf2 % as the occupancy grid and the value of each element represents the cost\
+\cf0             \cf2 % of traversing the cell.  A high value indicates that the cell is more costly\
+\cf0             \cf2 % (difficult) to traverese.  A value of Inf indicates an obstacle.\
+\cf0             \cf2 %\
+\cf0             \cf2 % Notes::\
+\cf0             \cf2 % - After the cost map is changed the path should be replanned by\
+\cf0             \cf2 %   calling DS.plan().\
+\cf0             \cf2 %\
+\cf0             \cf2 % See also Dstar.modify_cost.\
+\cf0             \cf14 if \cf0 ~all(size(costmap) == size(ds.occgridnav))\
+                error(\cf15 'costmap must be same size as occupancy grid'\cf0 );\
+            \cf14 end\
+\cf0             ds.costmap = costmap;\
+            ds.validplan = false;\
+        \cf14 end\
+\
+\cf0         \cf14 function \cf0 modify_cost(ds, xy, newcost)\
+            \cf2 %Dstar.modify_cost Modify cost map\
+\cf0             \cf2 %\
+\cf0             \cf2 % DS.modify_cost(P, C) modifies the cost map for the points described by\
+\cf0             \cf2 % the columns of P (2xN) and sets them to the corresponding elements of C\
+\cf0             \cf2 % (1xN).  For the particular case where P (2x2) the first and last columns\
+\cf0             \cf2 % define the corners of a rectangular region which is set to C (1x1).\
+\cf0             \cf2 %\
+\cf0             \cf2 % Notes::\
+\cf0             \cf2 % - After one or more point costs have been updated the path\
+\cf0             \cf2 %   should be replanned by calling DS.plan().\
+\cf0             \cf2 %\
+\cf0             \cf2 % See also Dstar.set_cost.\
+\
+\
+\cf0             \cf14 function \cf0 modify(ds, x, y, newcost)\
+                X = sub2ind(size(ds.costmap), y, x);\
+                ds.costmap(X) = newcost;\
+\
+                \cf14 if \cf0 ds.t(X) == ds.CLOSED\
+                    ds.INSERT(X, ds.h(X), \cf15 'modifycost'\cf0 );\
+                \cf14 end\
+\cf0             \cf14 end\
+\
+\cf0             \cf14 if \cf0 all(size(xy) == [2 2]) && numel(newcost) == 1\
+                \cf2 % a rectangular region is specified\
+\cf0                 \cf14 for \cf0 xx=xy(1,1):xy(1,2)\
+                    \cf14 for \cf0 yy=xy(2,1):xy(2,2)\
+                        modify(ds, xx, yy, newcost);\
+                    \cf14 end\
+\cf0                 \cf14 end\
+\cf0             \cf14 elseif \cf0 numcols(xy) == numel(newcost)\
+                \cf2 % a set of column vectors specifying the points to change\
+\cf0                 \cf14 for \cf0 i=1:numcols(xy)\
+                    modify(ds, xy(1,i), xy(2,i), newcost(i));\
+                \cf14 end\
+\cf0             \cf14 else\
+\cf0                 error(\cf15 'number of columns of P and C must match'\cf0 );\
+            \cf14 end\
+\
+\cf0             ds.validplan = false;\
+        \cf14 end\
+\cf0     \cf14 end \cf2 % public methods\
+\
+\cf0     \cf14 methods \cf0 (Access=protected)\
+\
+        \cf14 function \cf0 occgrid2costmap(ds, og, cost)\
+            \cf14 if \cf0 nargin < 3\
+                cost = 1;\
+            \cf14 end\
+\cf0             ds.costmap = og;\
+            ds.costmap(ds.costmap==1) = Inf;      \cf2 % occupied cells have Inf driving cost\
+\cf0             ds.costmap(ds.costmap==0) = cost;     \cf2 % unoccupied cells have driving cost\
+\cf0         \cf14 end\
+\
+\cf0         \cf2 % The main D* function as per the Stentz paper, comments Ln are the original\
+\cf0         \cf2 % line numbers.\
+\cf0         \cf14 function \cf0 ret = PROCESS_STATE(ds)\
+        \cf2 % TO BE DONE!!!   \
+\cf0         \
+\
+            \
+        \cf14 end \cf2 % process_state(0\
+\
+\cf0         \cf14 function \cf0 kk = k(ds, X)\
+            i = ds.openlist(1,:) == X;\
+            kk = ds.openlist(2, i);\
+        \cf14 end\
+}

@@ -1,0 +1,60 @@
+Decision Tree with max_depth=5, min_samples_split=2, min_samples_leaf=1 is built in 157.14208483695984 seconds
+Accuracy: 80.28%
+Decision Tree with max_depth=5, min_samples_split=2, min_samples_leaf=3 is built in 138.24321484565735 seconds
+Accuracy: 81.87%
+Decision Tree with max_depth=5, min_samples_split=2, min_samples_leaf=5 is built in 115.45347023010254 seconds
+Accuracy: 82.23%
+Decision Tree with max_depth=5, min_samples_split=5, min_samples_leaf=1 is built in 144.55012011528015 seconds
+Accuracy: 81.10%
+Decision Tree with max_depth=5, min_samples_split=5, min_samples_leaf=3 is built in 133.6343765258789 seconds
+Accuracy: 82.14%
+Decision Tree with max_depth=5, min_samples_split=5, min_samples_leaf=5 is built in 134.96026945114136 seconds
+Accuracy: 82.23%
+Decision Tree with max_depth=5, min_samples_split=10, min_samples_leaf=1 is built in 104.7050232887268 seconds
+Accuracy: 81.72%
+Decision Tree with max_depth=5, min_samples_split=10, min_samples_leaf=3 is built in 111.03578567504883 seconds
+Accuracy: 82.44%
+Decision Tree with max_depth=5, min_samples_split=10, min_samples_leaf=5 is built in 113.51070022583008 seconds
+Accuracy: 82.52%
+Decision Tree with max_depth=10, min_samples_split=2, min_samples_leaf=1 is built in 362.133127450943 seconds
+Accuracy: 78.37%
+Decision Tree with max_depth=10, min_samples_split=2, min_samples_leaf=3 is built in 289.32186484336853 seconds
+Accuracy: 81.03%
+Decision Tree with max_depth=10, min_samples_split=2, min_samples_leaf=5 is built in 186.74593710899353 seconds
+Accuracy: 81.92%
+Decision Tree with max_depth=10, min_samples_split=5, min_samples_leaf=1 is built in 182.76205563545227 seconds
+Accuracy: 80.10%
+Decision Tree with max_depth=10, min_samples_split=5, min_samples_leaf=3 is built in 181.42734146118164 seconds
+Accuracy: 81.71%
+Decision Tree with max_depth=10, min_samples_split=5, min_samples_leaf=5 is built in 181.30426573753357 seconds
+Accuracy: 81.92%
+Decision Tree with max_depth=10, min_samples_split=10, min_samples_leaf=1 is built in 126.3372323513031 seconds
+Accuracy: 81.06%
+Decision Tree with max_depth=10, min_samples_split=10, min_samples_leaf=3 is built in 126.22706961631775 seconds
+Accuracy: 82.16%
+Decision Tree with max_depth=10, min_samples_split=10, min_samples_leaf=5 is built in 126.93936920166016 seconds
+Accuracy: 82.37%
+Decision Tree with max_depth=15, min_samples_split=2, min_samples_leaf=1 is built in 276.7247004508972 seconds
+Accuracy: 78.37%
+Decision Tree with max_depth=15, min_samples_split=2, min_samples_leaf=3 is built in 232.07287311553955 seconds
+Accuracy: 81.03%
+Decision Tree with max_depth=15, min_samples_split=2, min_samples_leaf=5 is built in 181.14073038101196 seconds
+Accuracy: 81.92%
+Decision Tree with max_depth=15, min_samples_split=5, min_samples_leaf=1 is built in 182.4454848766327 seconds
+Accuracy: 80.10%
+Decision Tree with max_depth=15, min_samples_split=5, min_samples_leaf=3 is built in 181.1275770664215 seconds
+Accuracy: 81.71%
+Decision Tree with max_depth=15, min_samples_split=5, min_samples_leaf=5 is built in 182.26550793647766 seconds
+Accuracy: 81.92%
+Decision Tree with max_depth=15, min_samples_split=10, min_samples_leaf=1 is built in 127.33034539222717 seconds
+Accuracy: 81.06%
+Decision Tree with max_depth=15, min_samples_split=10, min_samples_leaf=3 is built in 126.90068316459656 seconds
+Accuracy: 82.16%
+Decision Tree with max_depth=15, min_samples_split=10, min_samples_leaf=5 is built in 127.0156991481781 seconds
+Accuracy: 82.37%
+Decision Tree with max_depth=5, min_samples_split=20, min_samples_leaf=5 is built in 72.2941825389862 seconds
+Accuracy: 83.00%
+Train Accuracy: 0.00%
+Decision Tree with max_depth=5, min_samples_split=20, min_samples_leaf=5 is built in 49.18177032470703 seconds
+Accuracy: 83.00%
+Train Accuracy: 0.00%

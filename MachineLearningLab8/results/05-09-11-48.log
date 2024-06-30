@@ -1,0 +1,63 @@
+2024-05-09 11:48:41,965 - Train size: 60000, Test size: 10000
+2024-05-09 11:48:43,222 - Start training...
+2024-05-09 11:48:43,222 - Using device cuda
+2024-05-09 11:48:43,222 - Number of epochs: 3000, Patience: 200 , Learning rate: 0.1
+2024-05-09 11:48:43,222 - SoftmaxRegression(
+  (linear): Linear(in_features=784, out_features=10, bias=True)
+)
+2024-05-09 11:48:43,222 - SGD (
+Parameter Group 0
+    dampening: 0
+    differentiable: False
+    foreach: None
+    lr: 0.1
+    maximize: False
+    momentum: 0
+    nesterov: False
+    weight_decay: 0
+)
+2024-05-09 11:48:46,923 - Epoch 1, Train Loss: 1.5383, Test Loss: 1.1510, Test Accuracy: 0.6704
+2024-05-09 11:48:49,786 - Epoch 2, Train Loss: 1.0325, Test Loss: 0.9509, Test Accuracy: 0.7039
+2024-05-09 11:48:52,685 - Epoch 3, Train Loss: 0.8940, Test Loss: 0.8604, Test Accuracy: 0.7217
+2024-05-09 11:48:55,757 - Epoch 4, Train Loss: 0.8222, Test Loss: 0.8072, Test Accuracy: 0.7377
+2024-05-09 11:48:58,498 - Epoch 5, Train Loss: 0.7750, Test Loss: 0.7702, Test Accuracy: 0.7484
+2024-05-09 11:49:01,256 - Epoch 6, Train Loss: 0.7413, Test Loss: 0.7396, Test Accuracy: 0.7604
+2024-05-09 11:49:04,096 - Epoch 7, Train Loss: 0.7143, Test Loss: 0.7176, Test Accuracy: 0.7640
+2024-05-09 11:49:06,861 - Epoch 8, Train Loss: 0.6925, Test Loss: 0.6992, Test Accuracy: 0.7706
+2024-05-09 11:49:09,816 - Epoch 9, Train Loss: 0.6763, Test Loss: 0.6829, Test Accuracy: 0.7786
+2024-05-09 11:49:12,639 - Epoch 10, Train Loss: 0.6604, Test Loss: 0.6697, Test Accuracy: 0.7807
+2024-05-09 11:49:15,431 - Epoch 11, Train Loss: 0.6466, Test Loss: 0.6598, Test Accuracy: 0.7828
+2024-05-09 11:49:18,157 - Epoch 12, Train Loss: 0.6364, Test Loss: 0.6486, Test Accuracy: 0.7855
+2024-05-09 11:49:21,055 - Epoch 13, Train Loss: 0.6265, Test Loss: 0.6402, Test Accuracy: 0.7890
+2024-05-09 11:49:23,615 - Epoch 14, Train Loss: 0.6171, Test Loss: 0.6312, Test Accuracy: 0.7910
+2024-05-09 11:49:26,252 - Epoch 15, Train Loss: 0.6090, Test Loss: 0.6240, Test Accuracy: 0.7933
+2024-05-09 11:49:28,959 - Epoch 16, Train Loss: 0.6027, Test Loss: 0.6184, Test Accuracy: 0.7941
+2024-05-09 11:49:31,858 - Epoch 17, Train Loss: 0.5952, Test Loss: 0.6112, Test Accuracy: 0.7981
+2024-05-09 11:49:34,682 - Epoch 18, Train Loss: 0.5890, Test Loss: 0.6064, Test Accuracy: 0.7984
+2024-05-09 11:49:37,531 - Epoch 19, Train Loss: 0.5829, Test Loss: 0.6004, Test Accuracy: 0.8012
+2024-05-09 11:49:40,247 - Epoch 20, Train Loss: 0.5789, Test Loss: 0.5949, Test Accuracy: 0.8022
+2024-05-09 11:49:42,897 - Epoch 21, Train Loss: 0.5725, Test Loss: 0.5914, Test Accuracy: 0.8040
+2024-05-09 11:49:45,558 - Epoch 22, Train Loss: 0.5685, Test Loss: 0.5866, Test Accuracy: 0.8050
+2024-05-09 11:49:48,295 - Epoch 23, Train Loss: 0.5638, Test Loss: 0.5825, Test Accuracy: 0.8077
+2024-05-09 11:49:51,174 - Epoch 24, Train Loss: 0.5603, Test Loss: 0.5798, Test Accuracy: 0.8067
+2024-05-09 11:49:53,941 - Epoch 25, Train Loss: 0.5568, Test Loss: 0.5773, Test Accuracy: 0.8064
+2024-05-09 11:49:56,643 - Epoch 26, Train Loss: 0.5522, Test Loss: 0.5729, Test Accuracy: 0.8087
+2024-05-09 11:49:59,514 - Epoch 27, Train Loss: 0.5493, Test Loss: 0.5689, Test Accuracy: 0.8094
+2024-05-09 11:50:02,308 - Epoch 28, Train Loss: 0.5460, Test Loss: 0.5661, Test Accuracy: 0.8096
+2024-05-09 11:50:05,051 - Epoch 29, Train Loss: 0.5427, Test Loss: 0.5631, Test Accuracy: 0.8112
+2024-05-09 11:50:07,717 - Epoch 30, Train Loss: 0.5398, Test Loss: 0.5602, Test Accuracy: 0.8126
+2024-05-09 11:50:10,456 - Epoch 31, Train Loss: 0.5374, Test Loss: 0.5584, Test Accuracy: 0.8126
+2024-05-09 11:50:13,384 - Epoch 32, Train Loss: 0.5346, Test Loss: 0.5557, Test Accuracy: 0.8130
+2024-05-09 11:50:16,102 - Epoch 33, Train Loss: 0.5318, Test Loss: 0.5533, Test Accuracy: 0.8127
+2024-05-09 11:50:18,921 - Epoch 34, Train Loss: 0.5292, Test Loss: 0.5515, Test Accuracy: 0.8150
+2024-05-09 11:50:21,856 - Epoch 35, Train Loss: 0.5274, Test Loss: 0.5498, Test Accuracy: 0.8156
+2024-05-09 11:50:24,662 - Epoch 36, Train Loss: 0.5247, Test Loss: 0.5474, Test Accuracy: 0.8164
+2024-05-09 11:50:27,383 - Epoch 37, Train Loss: 0.5230, Test Loss: 0.5451, Test Accuracy: 0.8165
+2024-05-09 11:50:30,203 - Epoch 38, Train Loss: 0.5206, Test Loss: 0.5432, Test Accuracy: 0.8162
+2024-05-09 11:50:32,943 - Epoch 39, Train Loss: 0.5189, Test Loss: 0.5416, Test Accuracy: 0.8172
+2024-05-09 11:50:35,656 - Epoch 40, Train Loss: 0.5167, Test Loss: 0.5400, Test Accuracy: 0.8176
+2024-05-09 11:50:38,369 - Epoch 41, Train Loss: 0.5152, Test Loss: 0.5381, Test Accuracy: 0.8174
+2024-05-09 11:50:41,399 - Epoch 42, Train Loss: 0.5137, Test Loss: 0.5365, Test Accuracy: 0.8173
+2024-05-09 11:50:44,138 - Epoch 43, Train Loss: 0.5123, Test Loss: 0.5371, Test Accuracy: 0.8167
+2024-05-09 11:50:46,879 - Epoch 44, Train Loss: 0.5095, Test Loss: 0.5332, Test Accuracy: 0.8188
+2024-05-09 11:50:49,652 - Epoch 45, Train Loss: 0.5080, Test Loss: 0.5328, Test Accuracy: 0.8194
